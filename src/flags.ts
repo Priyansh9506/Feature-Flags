@@ -1,4 +1,5 @@
 import { flag } from '@vercel/flags/next';
+import { get } from '@vercel/edge-config';
 
 export const navigationLayoutFlag = flag({
   key: 'navigation-layout',
@@ -9,7 +10,13 @@ export const navigationLayoutFlag = flag({
     { label: 'Bottom Nav', value: 'bottom-nav' },
   ],
   defaultValue: 'sidebar',
-  decide: () => 'sidebar',
+  decide: async () => {
+    try {
+      return (await get('navigation-layout')) as 'sidebar' | 'topnav' | 'bottom-nav' ?? 'sidebar';
+    } catch {
+      return 'sidebar';
+    }
+  },
 });
 
 export const showAnnouncementBannerFlag = flag({
@@ -20,7 +27,13 @@ export const showAnnouncementBannerFlag = flag({
     { label: 'Hidden', value: false },
   ],
   defaultValue: true,
-  decide: () => true,
+  decide: async () => {
+    try {
+      return (await get('show-announcement-banner')) as boolean ?? true;
+    } catch {
+      return true;
+    }
+  },
 });
 
 export const heroVariantFlag = flag({
@@ -31,7 +44,13 @@ export const heroVariantFlag = flag({
     { label: 'Variant B – Overview', value: 'B' },
   ],
   defaultValue: 'A',
-  decide: () => 'A',
+  decide: async () => {
+    try {
+      return (await get('hero-variant')) as 'A' | 'B' ?? 'A';
+    } catch {
+      return 'A';
+    }
+  },
 });
 
 export const enableGradientCardsFlag = flag({
@@ -42,7 +61,13 @@ export const enableGradientCardsFlag = flag({
     { label: 'Disabled', value: false },
   ],
   defaultValue: false,
-  decide: () => false,
+  decide: async () => {
+    try {
+      return (await get('enable-gradient-cards')) as boolean ?? false;
+    } catch {
+      return false;
+    }
+  },
 });
 
 export const showPremiumPricingFlag = flag({
@@ -53,7 +78,13 @@ export const showPremiumPricingFlag = flag({
     { label: 'Hide', value: false },
   ],
   defaultValue: false,
-  decide: () => false,
+  decide: async () => {
+    try {
+      return (await get('show-premium-pricing')) as boolean ?? false;
+    } catch {
+      return false;
+    }
+  },
 });
 
 export const enableAiChatFlag = flag({
@@ -64,7 +95,13 @@ export const enableAiChatFlag = flag({
     { label: 'Disabled', value: false },
   ],
   defaultValue: false,
-  decide: () => false,
+  decide: async () => {
+    try {
+      return (await get('enable-ai-chat')) as boolean ?? false;
+    } catch {
+      return false;
+    }
+  },
 });
 
 export const showTestimonialsFlag = flag({
@@ -75,7 +112,13 @@ export const showTestimonialsFlag = flag({
     { label: 'Hidden', value: false },
   ],
   defaultValue: false,
-  decide: () => false,
+  decide: async () => {
+    try {
+      return (await get('show-testimonials')) as boolean ?? false;
+    } catch {
+      return false;
+    }
+  },
 });
 
 export const enableAnimationsFlag = flag({
@@ -86,5 +129,12 @@ export const enableAnimationsFlag = flag({
     { label: 'Disabled', value: false },
   ],
   defaultValue: true,
-  decide: () => true,
+  decide: async () => {
+    try {
+      return (await get('enable-animations')) as boolean ?? true;
+    } catch {
+      return true;
+    }
+  },
 });
+
