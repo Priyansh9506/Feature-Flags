@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bot, Send, X, Minus } from "lucide-react";
+import { Bot, Send, Minus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const botResponses = [

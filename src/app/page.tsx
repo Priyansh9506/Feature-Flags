@@ -22,7 +22,6 @@ import {
   Quote,
   Activity,
 } from "lucide-react";
-export const dynamic = 'force-dynamic';
 import React from "react";
 import {
   AreaChart,

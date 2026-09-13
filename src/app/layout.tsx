@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { DashboardLayout } from "@/components/dashboard-layout";
-import { VercelToolbar } from '@vercel/toolbar/next';
-import { 
+import { VercelToolbar } from "@vercel/toolbar/next";
+import { evaluate } from "flags/next";
+import {
   navigationLayoutFlag, showAnnouncementBannerFlag, heroVariantFlag,
   enableGradientCardsFlag, showPremiumPricingFlag, enableAiChatFlag,
   showTestimonialsFlag, enableAnimationsFlag
 } from "@/flags";
+import type { FeatureFlags } from "@/services/feature-flags";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -30,18 +32,38 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const initialFlags = {
-    "navigation-layout": await navigationLayoutFlag(),
-    "show-announcement-banner": await showAnnouncementBannerFlag(),
-    "hero-variant": await heroVariantFlag(),
-    "enable-gradient-cards": await enableGradientCardsFlag(),
-    "show-premium-pricing": await showPremiumPricingFlag(),
-    "enable-ai-chat": await enableAiChatFlag(),
-    "show-testimonials": await showTestimonialsFlag(),
-    "enable-animations": await enableAnimationsFlag(),
+  const [
+    navigationLayout,
+    showAnnouncementBanner,
+    heroVariant,
+    enableGradientCards,
+    showPremiumPricing,
+    enableAiChat,
+    showTestimonials,
+    enableAnimations,
+  ] = await evaluate([
+    navigationLayoutFlag,
+    showAnnouncementBannerFlag,
+    heroVariantFlag,
+    enableGradientCardsFlag,
+    showPremiumPricingFlag,
+    enableAiChatFlag,
+    showTestimonialsFlag,
+    enableAnimationsFlag,
+  ]);
+
+  const initialFlags: FeatureFlags = {
+    "navigation-layout": navigationLayout,
+    "show-announcement-banner": showAnnouncementBanner,
+    "hero-variant": heroVariant,
+    "enable-gradient-cards": enableGradientCards,
+    "show-premium-pricing": showPremiumPricing,
+    "enable-ai-chat": enableAiChat,
+    "show-testimonials": showTestimonials,
+    "enable-animations": enableAnimations,
   };
 
-  const shouldInjectToolbar = process.env.NODE_ENV === 'development';
+  const shouldInjectToolbar = process.env.NODE_ENV === "development";
 
   return (
     <html
@@ -49,7 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={`${inter.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-light">
-        <Providers initialFlags={initialFlags as any}>
+        <Providers initialFlags={initialFlags}>
           <DashboardLayout>{children}</DashboardLayout>
         </Providers>
         {shouldInjectToolbar && <VercelToolbar />}
@@ -57,4 +79,3 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   );
 }
-

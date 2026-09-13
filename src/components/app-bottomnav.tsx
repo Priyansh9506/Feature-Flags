@@ -1,4 +1,4 @@
-import { mainNav, configNav } from "@/config/nav";
+import { mainNav } from "@/config/nav";
 import { PlusCircle } from "lucide-react";
 
 export function AppBottomNav() {
