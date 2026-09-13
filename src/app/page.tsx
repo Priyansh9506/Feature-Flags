@@ -34,7 +34,7 @@ import {
   Tooltip,
 } from "recharts";
 import { useFeatureFlags } from "@/services/flag-context";
-import { DebugPanel } from "@/components/debug-panel";
+
 import { AIChatWidget } from "@/components/ai-chat-widget";
 
 // ─── Data ───
@@ -398,7 +398,7 @@ export default function DashboardPage() {
       {flags["show-testimonials"] && <TestimonialsSection />}
 
       {flags["enable-ai-chat"] && <AIChatWidget />}
-      <DebugPanel />
+
     </div>
   );
 }
