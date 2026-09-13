@@ -1,5 +1,5 @@
 import { flag } from '@vercel/flags/next';
-import { get } from '@vercel/edge-config';
+import { get } from '@vercel/global-config';
 
 export const navigationLayoutFlag = flag({
   key: 'navigation-layout',
