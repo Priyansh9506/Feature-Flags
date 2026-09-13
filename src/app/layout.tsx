@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { DashboardLayout } from "@/components/dashboard-layout";
+import { VercelToolbar } from '@vercel/toolbar/next';
 import { 
   navigationLayoutFlag, showAnnouncementBannerFlag, heroVariantFlag,
   enableGradientCardsFlag, showPremiumPricingFlag, enableAiChatFlag,
@@ -38,6 +39,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     "enable-animations": await enableAnimationsFlag(),
   };
 
+  const shouldInjectToolbar = process.env.NODE_ENV === 'development';
+
   return (
     <html
       lang="en"
@@ -47,7 +50,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers initialFlags={initialFlags as any}>
           <DashboardLayout>{children}</DashboardLayout>
         </Providers>
+        {shouldInjectToolbar && <VercelToolbar />}
       </body>
     </html>
   );
 }
+
