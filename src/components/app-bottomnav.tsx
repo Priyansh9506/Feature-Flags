@@ -6,12 +6,12 @@ export function AppBottomNav() {
   const visibleNav = mainNav.slice(0, 4);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 flex h-16 items-center justify-around border-t border-zinc-800 bg-background/95 px-2 pb-safe backdrop-blur-sm sm:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex h-16 items-center justify-around border-t border-border bg-background/95 px-2 pb-safe backdrop-blur-sm sm:hidden">
       {visibleNav.slice(0, 2).map((item) => (
         <a
           key={item.title}
           href={item.url}
-          className="flex flex-col items-center gap-1 p-2 text-zinc-400 hover:text-zinc-100 transition-colors"
+          className="flex flex-col items-center gap-1 p-2 text-muted-foreground hover:text-foreground transition-colors"
         >
           <item.icon className="h-5 w-5" />
           <span className="text-[10px] font-medium leading-none">{item.title}</span>
@@ -27,7 +27,7 @@ export function AppBottomNav() {
         <a
           key={item.title}
           href={item.url}
-          className="flex flex-col items-center gap-1 p-2 text-zinc-400 hover:text-zinc-100 transition-colors"
+          className="flex flex-col items-center gap-1 p-2 text-muted-foreground hover:text-foreground transition-colors"
         >
           <item.icon className="h-5 w-5" />
           <span className="text-[10px] font-medium leading-none">{item.title}</span>

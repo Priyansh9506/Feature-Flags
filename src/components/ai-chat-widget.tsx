@@ -34,7 +34,7 @@ export function AIChatWidget() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-5 right-16 z-40 h-10 w-10 rounded-lg bg-zinc-800 border border-zinc-700 text-zinc-400 flex items-center justify-center hover:bg-zinc-700 hover:text-zinc-200 transition-colors"
+        className="fixed bottom-5 right-16 z-40 h-10 w-10 rounded-lg bg-card border border-border text-muted-foreground flex items-center justify-center hover:bg-accent hover:text-foreground transition-colors"
       >
         <Bot className="h-4 w-4" />
       </button>
@@ -42,16 +42,16 @@ export function AIChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-16 right-16 z-40 w-72 h-96 rounded-xl border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/60 flex flex-col overflow-hidden">
+    <div className="fixed bottom-16 right-16 z-40 w-72 h-96 rounded-xl border border-border bg-popover shadow-2xl shadow-black/60 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-3 py-2.5 border-b border-zinc-800">
+      <div className="flex items-center justify-between px-3 py-2.5 border-b border-border">
         <div className="flex items-center gap-2">
-          <Bot className="h-3.5 w-3.5 text-zinc-400" />
-          <span className="text-xs font-medium text-zinc-300">Flag Assistant</span>
+          <Bot className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="text-xs font-medium text-foreground">Flag Assistant</span>
         </div>
         <button
           onClick={() => setOpen(false)}
-          className="p-1 rounded-md hover:bg-zinc-800 text-zinc-500 hover:text-zinc-300 transition-colors"
+          className="p-1 rounded-md hover:bg-accent text-muted-foreground hover:text-foreground transition-colors"
         >
           <Minus className="h-3 w-3" />
         </button>
@@ -67,8 +67,8 @@ export function AIChatWidget() {
             <div
               className={`max-w-[85%] rounded-lg px-3 py-2 text-xs leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-zinc-200 text-zinc-900"
-                  : "bg-zinc-800/80 text-zinc-300"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-foreground"
               }`}
             >
               {msg.text}
@@ -78,7 +78,7 @@ export function AIChatWidget() {
       </div>
 
       {/* Input */}
-      <div className="px-2 py-2 border-t border-zinc-800">
+      <div className="px-2 py-2 border-t border-border">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -90,11 +90,11 @@ export function AIChatWidget() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask something..."
-            className="flex-1 h-8 text-xs bg-zinc-900 border-zinc-800"
+            className="flex-1 h-8 text-xs bg-muted/50 border-transparent focus-visible:ring-1 focus-visible:ring-border"
           />
           <button
             type="submit"
-            className="h-8 w-8 rounded-md bg-zinc-200 text-zinc-900 flex items-center justify-center shrink-0 hover:bg-white transition-colors"
+            className="h-8 w-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0 hover:bg-primary/90 transition-colors"
           >
             <Send className="h-3 w-3" />
           </button>
